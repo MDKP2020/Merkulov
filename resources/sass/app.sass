@@ -1,0 +1,51 @@
+$primary: #1976D2
+
+@import "~bulma"
+@import "~bulma-switch"
+@import "~bulma-checkradio"
+
+html, body
+  overflow: visible
+
+.body-scroll-lock
+  overflow: hidden
+  position: relative
+
+.breadcrumb
+  ul
+    margin-left: 0 !important
+
+    li
+      margin-top: 0
+
+      &:first-child
+        a
+          padding-left: 0
+
+
+.title-row
+  display: flex
+  justify-content: space-between
+
+
+.modal-content
+  background: #fff
+  padding: 40px
+  border-radius: 5px
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1)
+
+.login-container
+  width: 100%
+  height: 100%
+
+.login-card
+  position: absolute
+  left: 50%
+  top: 50%
+  transform: translate(-50%, -50%)
+
+.login-block
+  padding: 15px
+
+.login-form-item
+  padding-bottom: 10px
