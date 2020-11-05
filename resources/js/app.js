@@ -1,13 +1,18 @@
 require('./bootstrap');
 
-import Vue from 'vue/dist/vue'
+import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueProgressBar from 'vue-progressbar'
+import 'vue-toast-notification/dist/theme-default.css'
+
 import axios from 'axios'
 
 import headerLayout from './components/layouts/header.vue'
 import navLayout from './components/layouts/nav.vue'
 import infiniteScroll from "vue-infinite-scroll";
+
+import students from './components/students/list'
+import studentsForm from './components/students/form'
 
 Vue.use(infiniteScroll);
 
@@ -21,8 +26,14 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
     mode: 'hash',
-    routes: [],
-    // active: 'active-menu-item'
+    // basePath: '/',
+    routes: [
+        { path: '/students', component: students },
+        { path: '/students/create', component: studentsForm },
+        { path: '/students/:id/edit', component: studentsForm },
+
+    ],
+    linkActiveClass: 'active-menu-item'
 });
 
 window.Vue = new Vue({
@@ -37,7 +48,7 @@ window.Vue = new Vue({
 
     <vue-progress-bar></vue-progress-bar>
 
-    <header-layout :info="user"></header-layout>
+    <header-layout></header-layout>
 
     <div class="container" style="margin-top: 40px">
         <div class="columns">
@@ -53,7 +64,6 @@ window.Vue = new Vue({
 </div>`,
 
     data:() => ({
-        user: {},
         overlayActive: false,
         observer: {}
     }),

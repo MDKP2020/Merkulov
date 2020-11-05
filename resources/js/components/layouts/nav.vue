@@ -2,10 +2,10 @@
     <aside class="menu">
         <ul class="menu-list">
             <p class="menu-label">Основное</p>
-                <li :class="{'active-menu-item' : $route.path.startsWith('/students')}">
+                <li>
                     <router-link to="/students">Студенты</router-link>
                 </li>
-                <li :class="{'active-menu-item' : $route.path.startsWith('/applicants')}">
+                <li>
                     <router-link to="/applicants">Абитуриенты</router-link>
                 </li>
         </ul>
