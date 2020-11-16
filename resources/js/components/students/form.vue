@@ -13,7 +13,7 @@
         <nav class="breadcrumb has-bullet-separator">
             <ul>
                 <li><router-link to="/students">Студенты</router-link></li>
-                <li class="is-active" v-if="student.name"><a>{{ student.name }}</a></li>
+                <li class="is-active" v-if="student.surname"><a>{{ student.surname }}</a></li>
             </ul>
         </nav>
 
@@ -22,13 +22,6 @@
         <div class="box">
             <form @submit="send" v-if="showForm">
                 <div class="field">
-                    <label class="label" for="name">Имя</label>
-                    <div class="control">
-                        <input id="name" type="text" class="input" v-model="student.name" required max="255"/>
-                    </div>
-                </div>
-
-                <div class="field">
                     <label class="label" for="name">Фамилия</label>
                     <div class="control">
                         <input id="surname" type="text" class="input" v-model="student.surname" required max="255"/>
@@ -36,9 +29,55 @@
                 </div>
 
                 <div class="field">
+                    <label class="label" for="name">Имя</label>
+                    <div class="control">
+                        <input id="name" type="text" class="input" v-model="student.name" required max="255"/>
+                    </div>
+                </div>
+
+                <div class="field">
                     <label class="label" for="name">Отчество</label>
                     <div class="control">
                         <input id="patronymic" type="text" class="input" v-model="student.patronymic" required max="255"/>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="name">Номер зачетной книжки</label>
+                    <div class="control">
+                        <input id="transcript" type="text" class="input" v-model="student.transcript" max="255"/>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="status">Статус</label>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control is-expanded">
+                                <select id="status" class="select is-fullwidth" v-model="student.status">
+                                    <option value="studying">Учится</option>
+                                    <option value="expelled">Отчислен</option>
+                                    <option value="academic_leave">В академическом отпуске</option>
+                                    <option value="graduated">Выпустился</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label" for="academic_degree">Академическая ступень</label>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control is-expanded">
+                                <select id="academic_degree" class="select is-fullwidth" v-model="student.academic_degree">
+                                    <option value="bachelor">Бакалавр</option>
+                                    <option value="specialist">Специалист</option>
+                                    <option value="master">Магистр</option>
+                                    <option value="postgraduate">Аспирант</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -57,7 +96,7 @@
 
         <delete-warning v-if="showDeleteWarning"
                         type="студента"
-                        :name="student.name + ' ' + student.surname + ' ' + student.patronymic"
+                        :name="student.surname + ' ' + student.name + ' ' + student.patronymic"
                         :path="'/api/students/' + studentId"
                         @close="closeDeleteWarning"></delete-warning>
     </div>
@@ -75,8 +114,7 @@
 
         data: () => ({
             studentId: null,
-            student: null,
-            newImage: null,
+            student: {},
             errorText: '',
             loading: false,
             showDeleteWarning: false,
@@ -97,6 +135,9 @@
                     name: '',
                     surname: '',
                     patronymic: '',
+                    transcript: '',
+                    status: 'studying',
+                    academic_degree: 'bachelor'
                 });
             }
         },
@@ -131,6 +172,9 @@
                 data.append('name', this.student.name);
                 data.append('surname', this.student.surname);
                 data.append('patronymic', this.student.patronymic);
+                data.append('transcript', this.student.transcript);
+                data.append('status', this.student.status);
+                data.append('academic_degree', this.student.academic_degree);
 
                 data.append('_method', this.studentId ? 'put' : 'post');
 

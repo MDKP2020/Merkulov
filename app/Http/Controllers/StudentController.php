@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StudentRequest;
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -21,8 +22,8 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StudentRequest $request
+     * @return Response
      */
     public function store(StudentRequest $request)
     {
@@ -40,7 +41,7 @@ class StudentController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Student  $student
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(Student $student)
     {
@@ -50,9 +51,9 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  \App\Student  $student
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, Student $student)
     {
@@ -63,7 +64,7 @@ class StudentController extends Controller
      * Remove the specified resource from storage.
      *
      * @param \App\Student $student
-     * @return \Illuminate\Http\Response
+     * @return Response
      * @throws \Exception
      */
     public function destroy(Student $student)

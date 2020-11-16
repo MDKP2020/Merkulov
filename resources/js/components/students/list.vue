@@ -15,16 +15,18 @@
                 <th>Группа</th>
                 <th>Дата начала обучения</th>
                 <th>Статус</th>
+                <th>Уровень обучения</th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="(student, index) in students">
                 <th>{{ ++index }}</th>
-                <td><router-link :to="'/students/' + student.id + '/edit'">{{ student.name + ' ' + student.surname + ' ' + student.patronymic }}</router-link></td>
-                <td>Номер зачетной книжки</td>
+                <td><router-link :to="'/students/' + student.id + '/edit'">{{ student.surname + ' ' + student.name + ' ' + student.patronymic }}</router-link></td>
+                <td>{{ student.transcript }}</td>
                 <td>Группа</td>
                 <td>Дата начала обучения</td>
-                <td>Статус</td>
+                <td>{{ $parent.STATUSES[student.status] }}</td>
+                <td>{{ $parent.ACADEMIC_DEGREES[student.academic_degree] }}</td>
             </tr>
             </tbody>
         </table>

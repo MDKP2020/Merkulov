@@ -20,3 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResource('students', 'StudentController')->except([
     'create', 'edit']);
+
+Route::apiResource('transcripts', 'TranscriptsController')->except([
+    'index', 'create', 'edit']);

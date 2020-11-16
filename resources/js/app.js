@@ -3,6 +3,7 @@ require('./bootstrap');
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueProgressBar from 'vue-progressbar'
+import VueToast from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-default.css'
 
 import axios from 'axios'
@@ -24,9 +25,15 @@ Vue.use(VueProgressBar, {
 
 Vue.use(VueRouter);
 
+Vue.use(VueToast, {
+    position: 'top',
+    duration: 3000,
+});
+
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
 const router = new VueRouter({
     mode: 'hash',
-    // basePath: '/',
     routes: [
         { path: '/students', component: students },
         { path: '/students/create', component: studentsForm },
@@ -63,9 +70,21 @@ window.Vue = new Vue({
 
 </div>`,
 
-    data:() => ({
+    data: () => ({
         overlayActive: false,
-        observer: {}
+        observer: {},
+        STATUSES: {
+            'studying': 'Учится',
+            'expelled': 'Отчислен',
+            'academic_leave': 'В академическом отпуске',
+            'graduated': 'Выпустился'
+        },
+        ACADEMIC_DEGREES: {
+            'bachelor': 'Бакалавр',
+            'specialist': 'Специалист',
+            'master': 'Магистр',
+            'postgraduate': 'Аспирант'
+        },
     }),
 
     created() {
