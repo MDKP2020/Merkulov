@@ -20,23 +20,29 @@
                 <th>{{ ++index }}</th>
                 <td><router-link :to="'/departments/' + department.id + '/edit'">{{ department.name }}</router-link></td>
                 <td>
-                    <ul>
+                    <ul class="unmark">
                         <li>
+                            <input type="checkbox">
                             <a>ИВТ-161</a>
                         </li>
                         <li>
+                            <input type="checkbox">
                             <a>ИВТ-162</a>
                         </li>
                         <li>
+                            <input type="checkbox">
                             <a>ИВТ-261</a>
                         </li>
                         <li>
+                            <input type="checkbox">
                             <a>ИВТ-361</a>
                         </li>
                         <li>
+                            <input type="checkbox">
                             <a>ИВТ-461</a>
                         </li>
                         <li>
+                            <input type="checkbox">
                             <a>ИВТ-462</a>
                         </li>
                     </ul>
@@ -81,4 +87,8 @@
 </script>
 
 <style scoped>
+    .unmark {
+        list-style-type: none;
+        margin: 0;
+    }
 </style>

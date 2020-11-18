@@ -21,6 +21,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('students', 'StudentController')->except([
     'create', 'edit']);
 
+Route::apiResource('applicants', 'ApplicantController')->except([
+    'create', 'edit']);
+
 Route::apiResource('departments', 'DepartmentController')->except([
     'create', 'edit']);
 

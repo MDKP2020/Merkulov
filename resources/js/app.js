@@ -16,6 +16,8 @@ import students from './components/students/list'
 import studentsForm from './components/students/form'
 import departments from './components/departments/list'
 import departmentsForm from './components/departments/form'
+import applicants from './components/applicants/list'
+import applicantsForm from './components/applicants/form'
 
 Vue.use(infiniteScroll);
 
@@ -40,10 +42,12 @@ const router = new VueRouter({
         { path: '/students', component: students },
         { path: '/students/create', component: studentsForm },
         { path: '/students/:id/edit', component: studentsForm },
+        { path: '/applicants', component: applicants },
+        { path: '/applicants/create', component: applicantsForm },
+        { path: '/applicants/:id/edit', component: applicantsForm },
         { path: '/departments', component: departments },
         { path: '/departments/create', component: departmentsForm },
         { path: '/departments/:id/edit', component: departmentsForm },
-
     ],
     linkActiveClass: 'active-menu-item'
 });
