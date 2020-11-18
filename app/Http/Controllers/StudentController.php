@@ -55,7 +55,7 @@ class StudentController extends Controller
      * @param  \App\Student  $student
      * @return Response
      */
-    public function update(Request $request, Student $student)
+    public function update(StudentRequest $request, Student $student)
     {
         $student->update($request->all());
     }

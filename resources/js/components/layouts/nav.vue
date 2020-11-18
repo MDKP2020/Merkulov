@@ -8,6 +8,9 @@
                 <li>
                     <router-link to="/applicants">Абитуриенты</router-link>
                 </li>
+                <li>
+                    <router-link to="/departments">Кафедры</router-link>
+                </li>
         </ul>
     </aside>
 </template>
