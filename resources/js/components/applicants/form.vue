@@ -13,7 +13,7 @@
         <nav class="breadcrumb has-bullet-separator">
             <ul>
                 <li>
-                    <router-link to="/applicants">Студенты</router-link>
+                    <router-link to="/applicants">Абитуриенты</router-link>
                 </li>
                 <li class="is-active" v-if="applicant.surname"><a>{{ applicant.surname }}</a></li>
             </ul>
