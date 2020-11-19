@@ -5,12 +5,14 @@ import VueRouter from 'vue-router'
 import VueProgressBar from 'vue-progressbar'
 import VueToast from 'vue-toast-notification'
 import 'vue-toast-notification/dist/theme-default.css'
+import 'vue-select/dist/vue-select.css';
 
 import axios from 'axios'
 
 import headerLayout from './components/layouts/header.vue'
 import navLayout from './components/layouts/nav.vue'
 import infiniteScroll from "vue-infinite-scroll";
+import vSelect from 'vue-select'
 
 import students from './components/students/list'
 import studentsForm from './components/students/form'
@@ -18,6 +20,7 @@ import departments from './components/departments/list'
 import departmentsForm from './components/departments/form'
 import applicants from './components/applicants/list'
 import applicantsForm from './components/applicants/form'
+import groupForm from './components/groups/form'
 
 Vue.use(infiniteScroll);
 
@@ -34,6 +37,8 @@ Vue.use(VueToast, {
     duration: 3000,
 });
 
+Vue.component('v-select', vSelect);
+
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 const router = new VueRouter({
@@ -48,6 +53,7 @@ const router = new VueRouter({
         { path: '/departments', component: departments },
         { path: '/departments/create', component: departmentsForm },
         { path: '/departments/:id/edit', component: departmentsForm },
+        { path: '/groupForm', component: groupForm },
     ],
     linkActiveClass: 'active-menu-item'
 });

@@ -12,7 +12,9 @@
 
         <nav class="breadcrumb has-bullet-separator">
             <ul>
-                <li><router-link to="/applicants">Студенты</router-link></li>
+                <li>
+                    <router-link to="/applicants">Студенты</router-link>
+                </li>
                 <li class="is-active" v-if="applicant.surname"><a>{{ applicant.surname }}</a></li>
             </ul>
         </nav>
@@ -42,19 +44,20 @@
                     </div>
                 </div>
 
-<!--                <div class="field">-->
-<!--                    <label class="label" for="name">Номер зачетной книжки</label>-->
-<!--                    <div class="control">-->
-<!--                        <input id="transcript" type="text" class="input" v-model="applicant.transcript" max="255"/>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                <div class="field">-->
+                <!--                    <label class="label" for="name">Номер зачетной книжки</label>-->
+                <!--                    <div class="control">-->
+                <!--                        <input id="transcript" type="text" class="input" v-model="applicant.transcript" max="255"/>-->
+                <!--                    </div>-->
+                <!--                </div>-->
 
                 <div class="field">
                     <label class="label" for="academic_degree">Академическая ступень</label>
                     <div class="field-body">
                         <div class="field">
                             <div class="control is-expanded">
-                                <select id="academic_degree" class="select is-fullwidth" v-model="applicant.academic_degree">
+                                <select id="academic_degree" class="select is-fullwidth"
+                                        v-model="applicant.academic_degree">
                                     <option value="bachelor">Бакалавр</option>
                                     <option value="specialist">Специалист</option>
                                     <option value="master">Магистр</option>
@@ -72,10 +75,17 @@
                     </div>
                 </div>
 
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-danger">Зачислить</button>
+                    </div>
+                </div>
+
                 <div class="field is-grouped has-text-right">
                     <div class="control">
                         <button type="submit" class="button is-primary" :class="{ 'is-loading': loading }"
-                                :disabled="loading">{{ applicantId ? 'Обновить' : 'Сохранить' }}</button>
+                                :disabled="loading">{{ applicantId ? 'Обновить' : 'Сохранить' }}
+                        </button>
                         <router-link to="/applicants" class="button">Вернуться к списку</router-link>
                     </div>
                 </div>

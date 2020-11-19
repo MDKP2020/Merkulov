@@ -5,6 +5,30 @@
         <p>
             <router-link to="/students/create">Создать студента</router-link>
         </p>
+<!--            <v-select-->
+<!--                    multiple-->
+<!--                    placeholder="Выберите кафедру"-->
+<!--                    :options="['ПОАС', 'Физика', 'ЭВМ']">-->
+<!--            </v-select>-->
+
+<!--            <v-select-->
+<!--                    multiple-->
+<!--                    placeholder="Выберите направление"-->
+<!--                    :options="['ПрИн', 'Физика']">-->
+<!--            </v-select>-->
+
+<!--            <v-select-->
+<!--                    placeholder="Выберите учебный год"-->
+<!--                    :options="['2019-2020']">-->
+<!--            </v-select>-->
+
+        <input type="text"
+               class="input"
+               placeholder="Начните вводить имя студента"
+               autocomplete="off"
+               @blur="showOptions = false"
+               @focus="(!isEmpty) ? showOptions = true : ''"
+        />
 
         <table class="table is-fullwidth" v-if="students.length">
             <thead>
@@ -41,11 +65,20 @@
 
     export default {
         data: () => ({
-            students: []
+            students: [],
+            showOptions: false,
         }),
 
         created() {
             this.getData();
+        },
+
+        watch: {
+            isEmpty: function (empty) {
+                if (empty) {
+                    this.showOptions = false;
+                }
+            }
         },
 
         methods: {
@@ -66,4 +99,7 @@
 </script>
 
 <style scoped>
+    .input {
+        margin: 15px 0;
+    }
 </style>
