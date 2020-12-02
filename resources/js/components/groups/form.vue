@@ -15,7 +15,7 @@
                 <li>
                     <router-link to="/departments">Кафедры</router-link>
                 </li>
-                <li class="is-active"><a>ПрИн-167</a></li>
+                <li class="is-active"><a>Прин</a></li>
             </ul>
         </nav>
 
@@ -107,8 +107,9 @@
             deleteWarning,
         },
 
+        // это просто список переменных
         data: () => ({
-            groupId: 1,
+            groupId: null,
             group: {},
             errorText: '',
             loading: false,
@@ -122,18 +123,19 @@
         },
 
         created() {
-            // if (this.$route.params.id) {
-            //     this.groupId = this.$route.params.id;
-            //     this.getData();
-            // } else {
-            //     this.$set(this, 'group', {
-            //         name: '',
-            //         surname: '',
-            //         patronymic: '',
-            //         score: '',
-            //         academic_degree: 'bachelor'
-            //     });
-            // }
+            if (this.$route.params.id) {
+                this.groupId = this.$route.params.id;
+                this.getData();
+            } else {
+                this.$set(this, 'group', {
+                    //TODO поля из миграции
+                    name: '',
+                    surname: '',
+                    patronymic: '',
+                    score: '',
+                    academic_degree: 'bachelor'
+                });
+            }
         },
 
         methods: {
