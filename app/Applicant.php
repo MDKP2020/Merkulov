@@ -12,4 +12,10 @@ class Applicant extends Model
         'created_at' => 'date:Y-m-d H:m',
         'updated_at' => 'date:Y-m-d H:m',
     ];
+
+    protected $with = ['certificate'];
+
+    public function certificate() {
+        return $this->belongsTo(Certificate::class);
+    }
 }

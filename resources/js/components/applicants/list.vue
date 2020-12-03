@@ -50,8 +50,8 @@
                         applicant.name + ' ' + applicant.patronymic }}
                     </router-link>
                 </td>
-                <td>290</td>
-                <td>1290 90000</td>
+                <td>{{ applicant.score }}</td>
+                <td>{{ applicant.certificate.serial + ' ' + applicant.certificate.number}}</td>
                 <td>{{ $parent.ACADEMIC_DEGREES[applicant.academic_degree] }}</td>
                 <td>
                     <ul>
