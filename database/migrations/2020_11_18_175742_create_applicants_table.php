@@ -20,7 +20,7 @@ class CreateApplicantsTable extends Migration
             $table->string('patronymic')->nullable();
             $table->unsignedInteger('score')->nullable();
             $table->enum('academic_degree', array_keys(\App\Student::ACADEMIC_DEGREES))->default('bachelor');
-            $table->foreignId('certificate_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('certificate_id')->unique()->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
 
