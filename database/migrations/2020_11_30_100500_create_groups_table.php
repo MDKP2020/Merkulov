@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateGroupsTable extends Migration
@@ -16,8 +17,15 @@ class CreateGroupsTable extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
             $table->string('number');
-            $table->foreignId('academic_degree_id')->constrained()->onDelete('cascade');
+            $table->enum('academic_degree', array_keys(\App\Student::ACADEMIC_DEGREES))->default('bachelor');
             $table->foreignId('major_id')->constrained()->onDelete('cascade');
+
+            //Добавлено из-за ошибки при работе с enum в postgres
+            DB::transaction(function () {
+                DB::statement('ALTER TABLE students DROP CONSTRAINT students_academic_degree_check;');
+                DB::statement('ALTER TABLE students ADD CONSTRAINT students_academic_degree_check CHECK (academic_degree::TEXT = ANY (ARRAY[\'bachelor\'::CHARACTER VARYING, \'specialist\'::CHARACTER VARYING, \'master\'::CHARACTER VARYING, \'postgraduate\'::CHARACTER VARYING]::TEXT[]))');
+            });
+
         });
     }
 
