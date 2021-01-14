@@ -4,10 +4,6 @@
             <div>
                 <p class="title">{{ groupId ? 'Редактирование' : 'Создание' }} группы</p>
             </div>
-
-            <div v-if="groupId">
-                <a @click="showDeleteWarning = true">Удалить</a>
-            </div>
         </div>
 
         <nav class="breadcrumb has-bullet-separator">
@@ -22,7 +18,24 @@
         <p v-if="errorText" class="has-text-danger">{{ errorText }}</p>
 
         <div class="box">
-                <table class="table is-fullwidth">
+          <div class="field">
+            <label class="label" for="academic_degree">Академическая ступень</label>
+            <div class="field-body">
+              <div class="field">
+                <div class="control is-expanded">
+                  <select id="academic_degree" class="select is-fullwidth" v-model="group.academic_degree">
+                    <option value="bachelor">Бакалавр</option>
+                    <option value="specialist">Специалист</option>
+                    <option value="master">Магистр</option>
+                    <option value="postgraduate">Аспирант</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <label class="label" for="group_students">Состав группы</label>
+          <table v-if="groupId" id="group_students" class="table is-fullwidth">
                     <thead>
                     <tr>
                         <th></th>
@@ -71,12 +84,17 @@
                         </td>
                     </tr>
                     </tbody>
-                </table>
+          </table>
 
-                <div class="field">
-                    <div class="control">
-                        <button class="button is-danger">Расформировать группу</button>
-                    </div>
+                <div class="field control" v-else>
+                  <button class="button is-success">Добавить студента</button>
+                  <!--          TODO здесь предлагать только студентов без группы -->
+                </div>
+
+                <div class="field" v-if="groupId">
+                  <div class="control">
+                    <button @click="showDeleteWarning = true" class="button is-danger">Расформировать группу</button>
+                  </div>
                 </div>
 
                 <div class="field is-grouped has-text-right">

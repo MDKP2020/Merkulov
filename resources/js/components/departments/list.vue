@@ -59,7 +59,7 @@
                     </ul>
                 </td>
                 <td>
-                    <a>Добавить группу</a>
+                  <router-link to="/groups/create">Создать группу</router-link>
                 </td>
             </tr>
             </tbody>
