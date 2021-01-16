@@ -12,6 +12,7 @@ class ApplicantSeeder extends Seeder
      */
     public function run()
     {
+        Applicant::truncate();
         factory(Applicant::class, 15)->create();
     }
 }
