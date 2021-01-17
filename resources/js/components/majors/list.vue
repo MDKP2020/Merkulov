@@ -1,12 +1,12 @@
 <template>
     <div class="content">
-        <h1>Абитуриенты</h1>
+        <h1>Направления</h1>
 
 
         <div class="filter-wrap">
 
             <p>
-                <router-link to="/majors/create">Создать абитуриента</router-link>
+                <router-link to="/majors/create">Создать направление</router-link>
             </p>
 
 

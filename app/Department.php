@@ -9,7 +9,5 @@ class Department extends Model
     public $timestamps = false;
     protected $guarded = [];
 
-    public function major() {
-        return $this->hasOne(Major::class);
-    }
+
 }
