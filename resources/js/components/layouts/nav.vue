@@ -11,6 +11,9 @@
                 <li>
                     <router-link to="/departments">Кафедры</router-link>
                 </li>
+                <li>
+                    <router-link to="/majors">Направления</router-link>
+                </li>
         </ul>
     </aside>
 </template>

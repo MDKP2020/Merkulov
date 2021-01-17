@@ -16,6 +16,8 @@ import vSelect from 'vue-select'
 
 import students from './components/students/list'
 import studentsForm from './components/students/form'
+import majors from './components/majors/list'
+import majorsForm from './components/majors/form'
 import departments from './components/departments/list'
 import departmentsForm from './components/departments/form'
 import applicants from './components/applicants/list'
@@ -54,6 +56,9 @@ const router = new VueRouter({
         { path: '/departments/create', component: departmentsForm },
         { path: '/departments/:id/edit', component: departmentsForm },
         { path: '/groupForm', component: groupForm },
+        { path: '/majors', component: majors },
+        { path: '/majors/create', component: majorsForm },
+        { path: '/majors/:id/edit', component: majorsForm }
     ],
     linkActiveClass: 'active-menu-item'
 });
