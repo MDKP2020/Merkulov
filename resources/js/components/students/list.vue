@@ -1,34 +1,46 @@
 <template>
     <div class="content">
-        <h1>Студенты</h1>
-
+        <h1>Студенты {{ac_deg}}</h1>
         <p>
             <router-link to="/students/create">Создать студента</router-link>
         </p>
-<!--            <v-select-->
-<!--                    multiple-->
-<!--                    placeholder="Выберите кафедру"-->
-<!--                    :options="['ПОАС', 'Физика', 'ЭВМ']">-->
-<!--            </v-select>-->
+        <div style="display: flex; flex-direction: row;">
+            <button class="button custom-btn-blue" style="margin: 15px 10px 15px 0px " onclick="document.querySelector('#filter-c').classList.toggle('disable-element');">Фильтр</button>
+            <input type="text"
+                   class="input"
+                   placeholder="Начните вводить имя студента"
+                   autocomplete="off"
+                   @blur="showOptions = false"
+                   @focus="(!isEmpty) ? showOptions = true : ''"
+            />
+        </div>
+        <div class="disable-element fltr-container" id="filter-c">
+<!--            <v-select
+                    multiple
+                    placeholder="Выберите кафедру"
+                    :options="['ПОАС', 'Физика', 'ЭВМ']">
+            </v-select>
+            <v-select
+                    style="margin-top: 10px;"
+                    multiple
+                    placeholder="Выберите направление"
+                    :options="['ПрИн', 'Физика']">
+            </v-select>-->
+            <v-select v-model="ac_deg"
+                      style="margin-top: 10px;"
+                      multiple
+                      placeholder="Выберите уровень обучения"
+                      :options="['Бакалавр', 'Магистр', 'Аспирант', 'Специалист']">
+            </v-select>
+<!--            <div style="display: flex; flex-direction: row; margin-top: 20px;">
+                <v-select
+                    style="width: auto;"
+                    placeholder="Выберите учебный год"
+                    :options="['2019-2020']">
+                </v-select>
 
-<!--            <v-select-->
-<!--                    multiple-->
-<!--                    placeholder="Выберите направление"-->
-<!--                    :options="['ПрИн', 'Физика']">-->
-<!--            </v-select>-->
-
-<!--            <v-select-->
-<!--                    placeholder="Выберите учебный год"-->
-<!--                    :options="['2019-2020']">-->
-<!--            </v-select>-->
-
-        <input type="text"
-               class="input"
-               placeholder="Начните вводить имя студента"
-               autocomplete="off"
-               @blur="showOptions = false"
-               @focus="(!isEmpty) ? showOptions = true : ''"
-        />
+            </div>-->
+        </div>
 
         <table class="table is-fullwidth" v-if="students.length">
             <thead>
@@ -43,7 +55,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(student, index) in students">
+            <tr v-for="(student, index) in students" v-if="!ac_deg.length || ac_deg.length && ac_deg.includes($parent.ACADEMIC_DEGREES[student.academic_degree])">
                 <th>{{ ++index }}</th>
                 <td><router-link :to="'/students/' + student.id + '/edit'">{{ student.surname + ' ' + student.name + ' ' + student.patronymic }}</router-link></td>
                 <td>{{ student.transcript }}</td>
@@ -67,6 +79,7 @@
         data: () => ({
             students: [],
             showOptions: false,
+            ac_deg : []
         }),
 
         created() {
@@ -101,5 +114,21 @@
 <style scoped>
     .input {
         margin: 15px 0;
+    }
+
+    .disable-element{
+        display: none!important;
+    }
+
+    .custom-btn-blue{
+        color: white;
+        border: 1px solid white;
+        background-color: #0a78ae;
+    }
+
+    .fltr-container{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
     }
 </style>

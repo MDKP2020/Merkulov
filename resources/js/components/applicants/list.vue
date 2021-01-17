@@ -8,18 +8,17 @@
             <p>
                 <router-link to="/applicants/create">Создать абитуриента</router-link>
             </p>
+<!--            <v-select v-model="kafedra"
+                    multiple
+                    placeholder="Выберите кафедру"
+                    :options="['ПОАС', 'Физика', 'ЭВМ']">
+            </v-select>
 
-<!--            <v-select-->
-<!--                    multiple-->
-<!--                    placeholder="Выберите кафедру"-->
-<!--                    :options="['ПОАС', 'Физика', 'ЭВМ']">-->
-<!--            </v-select>-->
-
-<!--            <v-select-->
-<!--                    multiple-->
-<!--                    placeholder="Выберите направление"-->
-<!--                    :options="['ПрИн', 'Физика']">-->
-<!--            </v-select>-->
+            <v-select
+                    multiple
+                    placeholder="Выберите направление"
+                    :options="['ПрИн', 'Физика', 'САПР']">
+            </v-select>-->
         </div>
 
         <input type="text"
