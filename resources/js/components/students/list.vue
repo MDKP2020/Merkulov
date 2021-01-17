@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-        <h1>Студенты {{ac_deg}}</h1>
+        <h1>Студенты</h1>
         <p>
             <router-link to="/students/create">Создать студента</router-link>
         </p>
