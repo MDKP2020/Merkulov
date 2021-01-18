@@ -105,7 +105,8 @@
                   </ul>
                   <div class="field">
                     <div class="control">
-                      <button @click="transferStudent = true" class="button is-danger">Перевести в другую группу</button>
+                      <button v-if="student.groups.length" @click="transferStudent = true" class="button is-danger">Перевести в другую группу</button>
+                      <button v-else @click="transferStudent = true" class="button is-danger">Зачислить в группу</button>
                     </div>
                   </div>
                 </div>
@@ -215,7 +216,7 @@
             send() {
               if (!this.group_id) {
                 this.$toast.error('Студенту необходимо присвоить группу.');
-              } else if(this.group_id === this.student.groups[0].id) {
+              } else if(this.student.groups.length && this.group_id === this.student.groups[0].id) {
                 this.$toast.info('Перевод невозможен. Группа, в которую вы собираетесь перевести студента, аналогична его текущей группе.');
               } else {
                 this.$Progress.start();
