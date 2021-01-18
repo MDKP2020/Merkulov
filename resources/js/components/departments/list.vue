@@ -32,34 +32,14 @@
                 <td>34</td>
                 <td>
                     <ul class="unmark">
-                        <li>
+                        <li v-for="(group, index) in department.groups">
                             <input type="checkbox">
-                            <router-link :to="'/groupForm'">ИВТ-161</router-link>
-                        </li>
-                        <li>
-                            <input type="checkbox">
-                            <a>ИВТ-162</a>
-                        </li>
-                        <li>
-                            <input type="checkbox">
-                            <a>ИВТ-261</a>
-                        </li>
-                        <li>
-                            <input type="checkbox">
-                            <a>ИВТ-361</a>
-                        </li>
-                        <li>
-                            <input type="checkbox">
-                            <a>ИВТ-461</a>
-                        </li>
-                        <li>
-                            <input type="checkbox">
-                            <a>ИВТ-462</a>
+                            <router-link :to="'/groups/' + group.id + '/edit'">{{ group.number }}</router-link>
                         </li>
                     </ul>
                 </td>
                 <td>
-                    <a>Добавить группу</a>
+                   <router-link :to="'/groups/create/' + department.id">Создать группу</router-link>
                 </td>
             </tr>
             </tbody>

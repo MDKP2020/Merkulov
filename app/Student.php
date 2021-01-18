@@ -9,6 +9,8 @@ class Student extends Model
     public $timestamps = false;
     protected $guarded = [];
 
+    protected $with = ['groups'];
+
     public const STATUSES = [
         'studying' => 'учится',
         'expelled' => 'отчислен',
@@ -22,4 +24,10 @@ class Student extends Model
         'master',
         'postgraduate'
     ];
+
+    /**
+     */
+    public function groups() {
+        return $this->belongsToMany(Group::class, 'student_group')->orderBy('student_group.academic_year_id', 'desc')->orderBy('student_group.id', 'desc');
+    }
 }

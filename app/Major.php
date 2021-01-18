@@ -14,4 +14,8 @@ class Major extends Model
     public function department() {
         return $this->belongsTo(Department::class);
     }
+
+    public function groups() {
+        return $this->hasMany(Group::class);
+    }
 }

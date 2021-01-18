@@ -22,7 +22,8 @@ import departments from './components/departments/list'
 import departmentsForm from './components/departments/form'
 import applicants from './components/applicants/list'
 import applicantsForm from './components/applicants/form'
-import groupForm from './components/groups/form'
+import groups from './components/groups/list'
+import groupsForm from './components/groups/form'
 
 Vue.use(infiniteScroll);
 
@@ -55,10 +56,12 @@ const router = new VueRouter({
         { path: '/departments', component: departments },
         { path: '/departments/create', component: departmentsForm },
         { path: '/departments/:id/edit', component: departmentsForm },
-        { path: '/groupForm', component: groupForm },
         { path: '/majors', component: majors },
         { path: '/majors/create', component: majorsForm },
-        { path: '/majors/:id/edit', component: majorsForm }
+        { path: '/majors/:id/edit', component: majorsForm },
+        { path: '/groups', component: groups },
+        { path: '/groups/create/:department_id', component: groupsForm },
+        { path: '/groups/:id/edit', component: groupsForm },
     ],
     linkActiveClass: 'active-menu-item'
 });

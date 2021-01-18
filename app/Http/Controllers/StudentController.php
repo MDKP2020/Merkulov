@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Group;
 use App\Http\Requests\StudentRequest;
 use App\Student;
 use Illuminate\Http\Request;
@@ -27,7 +28,12 @@ class StudentController extends Controller
      */
     public function store(StudentRequest $request)
     {
-        $student = Student::create($request->all());
+        $student = Student::create($request->except('group_id'));
+
+        if($request['group_id']) {
+            $group = Group::findOrFail($request['group_id']);
+            $student->groups()->attach($group);
+        }
 
         if (!$student) {
             return abort(422, 'Не удалось создать');
@@ -50,14 +56,19 @@ class StudentController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
+     *e vt
      * @param Request $request
      * @param  \App\Student  $student
      * @return Response
      */
     public function update(StudentRequest $request, Student $student)
     {
-        $student->update($request->all());
+        $student->update($request->except('group_id'));
+
+        if($request['group_id']) {
+            $group = Group::findOrFail($request['group_id']);
+            $student->groups()->attach($group);
+        }
     }
 
     /**

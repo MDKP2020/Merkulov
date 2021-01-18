@@ -32,3 +32,6 @@ Route::apiResource('transcripts', 'TranscriptsController')->except([
 
 Route::apiResource('majors', 'MajorController')->except([
     'create', 'edit']);
+
+Route::apiResource('groups', 'GroupController')->except([
+    'create', 'edit']);

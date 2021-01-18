@@ -60,7 +60,14 @@
                 <th>{{ ++index }}</th>
                 <td><router-link :to="'/students/' + student.id + '/edit'">{{ student.surname + ' ' + student.name + ' ' + student.patronymic }}</router-link></td>
                 <td>{{ student.transcript }}</td>
-                <td>Группа</td>
+                <td>
+                  <ul>
+                    <li v-for="(group, index) in student.groups">
+                      <p style="margin-top: 20px" class="has-text-success" v-if="index === 1">Ранее состоял в группах</p>
+                        <router-link :to="'/groups/' + group.id + '/edit'">{{ group.number }}</router-link>
+                    </li>
+                  </ul>
+                </td>
                 <td>Дата начала обучения</td>
                 <td>{{ $parent.STATUSES[student.status] }}</td>
                 <td>{{ $parent.ACADEMIC_DEGREES[student.academic_degree] }}</td>
