@@ -6,6 +6,7 @@ use App\Http\Requests\ApplicantRequest;
 use App\Applicant;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class ApplicantController extends Controller
 {
@@ -70,5 +71,37 @@ class ApplicantController extends Controller
     public function destroy(Applicant $applicant)
     {
         return response()->json($applicant->delete());
+    }
+
+    /**
+     * Create student from applicant
+     *
+     * @param  Request $request
+     * @return Response
+     */
+    public function createStudent(Request $request)
+    {
+        $status = false;
+
+        $id = DB::table('students')->insertGetId(
+            [
+                'name' => $request['name'],
+                'surname' => $request['surname'],
+                'patronymic' => $request['patronymic']
+            ]
+        );
+
+        if($id){
+            $cur_appl = DB::table('applicants')
+                ->where('id', $request['id'])
+                ->update(
+                    [
+                        'student_id' => $id,
+                        'is_enrolled' => true
+                    ]
+                );
+            $status = true;
+        }
+        return response()->json($status);
     }
 }
