@@ -35,3 +35,6 @@ Route::apiResource('majors', 'MajorController')->except([
 
 Route::apiResource('groups', 'GroupController')->except([
     'create', 'edit']);
+
+Route::apiResource('academic_years', 'AcademicYearsController')->except([
+    'create', 'edit']);
