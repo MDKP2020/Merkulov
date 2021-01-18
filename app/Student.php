@@ -28,6 +28,10 @@ class Student extends Model
     /**
      */
     public function groups() {
-        return $this->belongsToMany(Group::class, 'student_group')->orderBy('student_group.academic_year_id', 'desc')->orderBy('student_group.id', 'desc');
+        return $this->belongsToMany(Group::class, 'student_group')
+//            ->withPivot('academic_year_id')
+//            ->pivot->academic_year
+            ->orderBy('student_group.academic_year_id', 'desc')
+            ->orderBy('student_group.id', 'desc');
     }
 }

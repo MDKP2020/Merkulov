@@ -18,7 +18,7 @@ class CreateStudentGroupTable extends Migration
         Schema::create('student_group', function (Blueprint $table) {
             $table->id();
             $table->foreignId('group_id')->constrained()->onDelete('cascade');
-            $table->foreignId('academic_year_id')->default(DB::table('academic_years')->latest()->first()->id)->constrained()->onDelete('cascade');
+            $table->foreignId('academic_year_id')->default('22')->constrained()->onDelete('cascade');
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
         });
     }

@@ -68,7 +68,7 @@
                     </li>
                   </ul>
                 </td>
-                <td>Дата начала обучения</td>
+                <td>2020-09-01</td>
                 <td>{{ $parent.STATUSES[student.status] }}</td>
                 <td>{{ $parent.ACADEMIC_DEGREES[student.academic_degree] }}</td>
             </tr>
