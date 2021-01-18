@@ -69,6 +69,62 @@
                 </div>
 
                 <div class="field">
+                    <label class="label" for="academic_degree">Направление 1</label>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control is-expanded">
+                                <select id="major1" class="select is-fullwidth"
+                                        v-model="applicant.majors[0].id">
+                                    <option :value="null">- - -</option>
+                                    <option
+                                        v-for="(maj, index) in allMajors"
+                                        v-if="maj.id != applicant.majors[1].id  && maj.id != applicant.majors[2].id"
+                                        :value="maj.id">
+                                        {{ maj.full_name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <label class="label" for="academic_degree">Направление 2</label>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control is-expanded">
+                                <select id="major2" class="select is-fullwidth"
+                                        v-model="applicant.majors[1].id">
+                                    <option :value="null">- - -</option>
+                                    <option
+                                        v-for="(maj, index) in allMajors"
+                                        v-if="maj.id != applicant.majors[0].id  && maj.id != applicant.majors[2].id"
+                                        :value="maj.id">
+                                        {{ maj.full_name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <label class="label" for="academic_degree">Направление 3</label>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control is-expanded">
+                                <select id="major3" class="select is-fullwidth"
+                                        v-model="applicant.majors[2].id">
+                                    <option :value="null">- - -</option>
+                                    <option
+                                        v-for="(maj, index) in allMajors"
+                                        v-if="maj.id != applicant.majors[0].id  && maj.id != applicant.majors[1].id"
+                                        :value="maj.id">
+                                        {{ maj.full_name }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field">
                     <label class="label" for="name">Сумма баллов</label>
                     <div class="control">
                         <input id="score" type="text" class="input" v-model="applicant.score" max="255"/>
@@ -119,6 +175,7 @@
             errorText: '',
             loading: false,
             showDeleteWarning: false,
+            allMajors: []
         }),
 
         computed: {
@@ -128,6 +185,7 @@
         },
 
         created() {
+            this.getAllMajors();
             if (this.$route.params.id) {
                 this.applicantId = this.$route.params.id;
                 this.getData();
@@ -137,7 +195,8 @@
                     surname: '',
                     patronymic: '',
                     score: '',
-                    academic_degree: 'bachelor'
+                    academic_degree: 'bachelor',
+                    majors: [{id:null},{id:null},{id:null}]
                 });
             }
         },
@@ -152,6 +211,30 @@
 
                         if (response.data) {
                             this.applicant = response.data;
+
+                            var unfillMajors = 3-this.applicant.majors.length;
+                            for(var i = 0; i < unfillMajors; i++ ){
+                                this.applicant.majors.push({id:null})
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        this.$Progress.finish();
+
+                        console.log(error);
+                        this.errorText = error.message;
+                    });
+
+
+            },
+
+            getAllMajors(){
+                axios.get('api/majors/')
+                    .then((response) => {
+                        this.$Progress.finish();
+
+                        if (response.data) {
+                            this.allMajors = response.data;
                         }
                     })
                     .catch(error => {
@@ -166,14 +249,23 @@
                 this.$Progress.start();
                 this.loading = true;
 
+                var majors = []
+                for(var i = 0; i<3;i++)
+                    if(this.applicant.majors[i].id != null)
+                        majors.push(this.applicant.majors[i].id)
+
+
+
                 let url = this.applicantId ? '/api/applicants/' + this.applicantId : '/api/applicants';
                 let data = new FormData();
+
 
                 data.append('name', this.applicant.name);
                 data.append('surname', this.applicant.surname);
                 data.append('patronymic', this.applicant.patronymic);
                 data.append('score', this.applicant.score);
                 data.append('academic_degree', this.applicant.academic_degree);
+                data.append('majors', majors);
 
                 data.append('_method', this.applicantId ? 'put' : 'post');
 
@@ -190,6 +282,8 @@
                         this.loading = false;
                         this.$Progress.finish();
                     });
+
+
             },
 
             closeDeleteWarning(deleted) {

@@ -15,6 +15,15 @@ class Major extends Model
         return $this->belongsTo(Department::class);
     }
 
+    public function applicants() {
+        return $this->belongsToMany(
+            Applicant::class,
+            'applicant_major',
+            'major_id',
+            'applicant_id'
+        );
+    }
+
     public function groups() {
         return $this->hasMany(Group::class);
     }

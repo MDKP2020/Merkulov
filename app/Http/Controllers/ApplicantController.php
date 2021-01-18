@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ApplicantRequest;
 use App\Applicant;
+use App\Major;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use mysql_xdevapi\Exception;
 
 class ApplicantController extends Controller
 {
@@ -27,10 +29,20 @@ class ApplicantController extends Controller
      */
     public function store(ApplicantRequest $request)
     {
-        $applicant = Applicant::create($request->all());
+        $applicant = Applicant::create($request->except('majors'));
 
         if (!$applicant) {
             return abort(422, 'Не удалось создать');
+        }
+
+
+
+        $majors = str_split($request['majors']);
+        foreach ($majors as $id) {
+            if ($id >= 0) {
+                $majors = Major::findOrFail($id);
+                $applicant->majors()->attach($majors);
+            }
         }
 
         return response()->json($applicant);
@@ -57,7 +69,30 @@ class ApplicantController extends Controller
      */
     public function update(ApplicantRequest $request, Applicant $applicant)
     {
-        $applicant->update($request->all());
+        //$applicant->update($request->all());
+        $applicant->update($request->except('majors'));
+
+        $applicantMajorIds = [];
+        foreach ($applicant['majors'] as $item){
+            $applicantMajorIds[] = $item['id'];
+        }
+
+        //print_r($applicantMajorIds);
+
+
+        // $applicant->majors()->findOrFail($majors)
+
+        $majors = explode(",", $request['majors']);
+        foreach ($majors as $id) {
+            if ($id >= 0 ) {
+                $majors = Major::findOrFail($id);
+
+                if(in_array($id, $applicantMajorIds))
+                    $applicant->majors()->detach($majors);
+                $applicant->majors()->attach($majors);
+            }
+        }
+
     }
 
     /**

@@ -6,7 +6,7 @@
         <div class="filter-wrap">
 
             <p>
-                <router-link to="/applicants/create">Создать абитуриента</router-link>
+                <router-link to="/applicants/create">Создать абитуриента </router-link>
             </p>
 <!--            <v-select v-model="kafedra"
                     multiple
@@ -54,15 +54,10 @@
                 <td>{{ $parent.ACADEMIC_DEGREES[applicant.academic_degree] }}</td>
                 <td>
                     <ul>
-                        <li>
-                            <a>ИВТ</a>
+                        <li v-for="(major, index) in applicant.majors">
+                            <a>{{major.full_name}}</a>
                         </li>
-                        <li>
-                            <a>ПрИн-162</a>
-                        </li>
-                        <li>
-                            <a>Физика</a>
-                        </li>
+
                     </ul>
                 </td>
                 <td>{{ applicant.created_at }}</td>
