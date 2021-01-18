@@ -71,7 +71,7 @@
               <router-link :to="'/students/' + student.id + '/edit'" v-if="student.groups[0].number === group.number">{{
                   student.surname + ' ' +
                   student.name + ' ' + student.patronymic
-                }}
+                }} ({{ $parent.STATUSES[student.status] }})
               </router-link>
               <router-link style="color: red" :to="'/students/' + student.id + '/edit'" v-else>{{
                   student.surname + ' ' +
