@@ -8,7 +8,7 @@
             <button class="button custom-btn-blue" style="margin: 15px 10px 15px 0px " onclick="document.querySelector('#filter-c').classList.toggle('disable-element');">Фильтр</button>
             <input type="text"
                    class="input"
-                   placeholder="Начните вводить фамилию студента"
+                   placeholder="Начните вводить фамилию студента или ее часть"
                    autocomplete="off"
                    @blur="showOptions = false"
                    @focus="(!isEmpty) ? showOptions = true : ''"
@@ -56,7 +56,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(student, index) in students" v-if="(!ac_deg.length || ac_deg.length && ac_deg.includes($parent.ACADEMIC_DEGREES[student.academic_degree])) && (!st_name || st_name && student.surname.includes(st_name))">
+            <tr v-for="(student, index) in students" v-if="(!ac_deg.length || ac_deg.length && ac_deg.includes($parent.ACADEMIC_DEGREES[student.academic_degree])) && (!st_name || st_name && student.surname.toLowerCase().includes(st_name.toLowerCase()))">
                 <th>{{ ++index }}</th>
                 <td><router-link :to="'/students/' + student.id + '/edit'">{{ student.surname + ' ' + student.name + ' ' + student.patronymic }}</router-link></td>
                 <td>{{ student.transcript }}</td>
