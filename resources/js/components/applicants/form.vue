@@ -22,6 +22,9 @@
         <p v-if="errorText" class="has-text-danger">{{ errorText }}</p>
 
         <div class="box">
+            <div v-if="applicant.is_enrolled" style="background-color: #cce5ff; border: 1px solid #b8daff; border-radius: 10px;padding: 10px 20px 10px 20px; margin-bottom:10px;">
+                <p style="color: #004085;">{{applicant.surname + ' ' +  applicant.name + ' ' + applicant.patronymic + ' был зачислен.'}}</p>
+            </div>
             <form @submit="send" v-if="showForm">
                 <div class="field">
                     <label class="label" for="name">Фамилия</label>
@@ -131,9 +134,9 @@
                     </div>
                 </div>
 
-                <div class="field">
+                <div class="field" v-if="!applicant.is_enrolled">
                     <div class="control">
-                        <button class="button is-danger">Зачислить</button>
+                        <button class="button is-danger" @click="createStudent">Зачислить</button>
                     </div>
                 </div>
 
@@ -292,6 +295,20 @@
                 if (deleted) {
                     this.$router.push('/applicants');
                 }
+            },
+
+            createStudent(){
+
+                let data = new FormData();
+
+                data.append('id', this.applicantId);
+                data.append('name', this.applicant.name);
+                data.append('surname', this.applicant.surname);
+                data.append('patronymic', this.applicant.patronymic);
+                data.append('score', this.applicant.score);
+                data.append('academic_degree', this.applicant.academic_degree);
+
+                axios.post('/api/applicants/enrolleApplicant', data);
             },
         },
     }

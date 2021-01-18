@@ -105,7 +105,8 @@
                   </ul>
                   <div class="field">
                     <div class="control">
-                      <button @click="transferStudent = true" class="button is-danger">Перевести в другую группу</button>
+                      <button v-if="student.groups.length" @click="transferStudent = true" class="button is-danger">Перевести в другую группу</button>
+                      <button v-else @click="transferStudent = true" class="button is-danger">Зачислить в группу</button>
                     </div>
                   </div>
                 </div>

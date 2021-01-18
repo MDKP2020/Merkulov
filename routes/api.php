@@ -35,3 +35,5 @@ Route::apiResource('majors', 'MajorController')->except([
 
 Route::apiResource('groups', 'GroupController')->except([
     'create', 'edit']);
+
+Route::post( 'applicants/enrolleApplicant', 'ApplicantController@createStudent');
