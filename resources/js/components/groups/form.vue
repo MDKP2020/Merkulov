@@ -79,8 +79,9 @@
                 }} (переведен из данной группы в текущем учебном году)
               </router-link>
             </td>
-            <td v-if="student.groups[0].number === group.number">
-              <a>Отчислить</a>
+            <td>
+              <a v-if="student.groups[0].number === group.number && student.status !== 'expelled'"
+                 @click="setStudentStatusExpelled(index - 1)">Отчислить</a>
             </td>
           </tr>
           </tbody>
@@ -221,6 +222,10 @@ export default {
         this.$router.push('/departments');
       }
     },
+    setStudentStatusExpelled(index) {
+        this.group.students[index].status = 'expelled';
+        //TODO Давыд
+    }
   },
 }
 </script>
