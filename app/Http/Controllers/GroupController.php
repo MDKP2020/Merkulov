@@ -41,12 +41,12 @@ class GroupController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Group  $group
+     * @param  $id
      * @return Response
      */
-    public function show(Group $group)
+    public function show($id)
     {
-        return response()->json($group);
+        return response()->json(Group::with('students')->findOrFail($id));
     }
 
     /**

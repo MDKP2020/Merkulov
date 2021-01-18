@@ -56,7 +56,7 @@ class StudentController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *e vt
+     *
      * @param Request $request
      * @param  \App\Student  $student
      * @return Response

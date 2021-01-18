@@ -4,10 +4,6 @@
       <div>
         <p class="title">{{ groupId ? 'Редактирование' : 'Создание' }} группы</p>
       </div>
-
-      <div v-if="groupId">
-        <a @click="showDeleteWarning = true">Удалить</a>
-      </div>
     </div>
 
     <nav class="breadcrumb has-bullet-separator">
@@ -72,13 +68,18 @@
           <tr v-for="(student, index) in group.students">
             <th>{{ ++index }}</th>
             <td>
-              <router-link :to="'/students/' + student.id + '/edit'">{{
+              <router-link :to="'/students/' + student.id + '/edit'" v-if="student.groups[0].number === group.number">{{
                   student.surname + ' ' +
                   student.name + ' ' + student.patronymic
                 }}
               </router-link>
+              <router-link style="color: red" :to="'/students/' + student.id + '/edit'" v-else>{{
+                  student.surname + ' ' +
+                  student.name + ' ' + student.patronymic
+                }} (переведен из данной группы в текущем учебном году)
+              </router-link>
             </td>
-            <td>
+            <td v-if="student.groups[0].number === group.number">
               <a>Отчислить</a>
             </td>
           </tr>
@@ -92,7 +93,7 @@
 
         <div class="field" v-if="groupId">
           <div class="control">
-            <button @click="showDeleteWarning = true" class="button is-danger">Расформировать группу</button>
+            <button type="button" @click="showDeleteWarning = true" class="button is-danger">Расформировать группу</button>
           </div>
         </div>
 
@@ -101,7 +102,7 @@
             <button type="submit" class="button is-primary" :class="{ 'is-loading': loading }"
                     :disabled="loading">{{ groupId ? 'Обновить' : 'Сохранить' }}
             </button>
-            <router-link to="/groups" class="button">Вернуться к списку</router-link>
+            <router-link to="/departments" class="button">Вернуться к списку</router-link>
           </div>
         </div>
       </form>
@@ -133,7 +134,7 @@ export default {
     majors: {},
     errorText: '',
     loading: false,
-    showDeleteWarning: false,
+    showDeleteWarning: false
   }),
   computed: {
     showForm() {
@@ -202,7 +203,7 @@ export default {
       console.log(data);
       axios.post(url, data)
           .then(response => {
-            this.$router.push('/groups');
+            this.$router.push('/departments');
           })
           .catch(error => {
             this.$toast.error('Ошибка сервера. Не удалось сохранить');
@@ -215,8 +216,9 @@ export default {
     },
     closeDeleteWarning(deleted) {
       this.showDeleteWarning = false;
+
       if (deleted) {
-        this.$router.push('/groups');
+        this.$router.push('/departments');
       }
     },
   },
