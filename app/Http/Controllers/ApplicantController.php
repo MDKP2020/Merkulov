@@ -85,9 +85,10 @@ class ApplicantController extends Controller
 
         $id = DB::table('students')->insertGetId(
             [
-                'name' => $request['name'],
-                'surname' => $request['surname'],
-                'patronymic' => $request['patronymic']
+                'name'              => $request['name'],
+                'surname'           => $request['surname'],
+                'patronymic'        => $request['patronymic'],
+                'academic_degree'   => $request['academic_degree']
             ]
         );
 
