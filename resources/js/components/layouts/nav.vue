@@ -2,16 +2,16 @@
     <aside class="menu">
         <ul class="menu-list">
             <p class="menu-label">Основное</p>
-                <li>
+                <li style="margin-bottom: 10px;">
                     <router-link to="/students">Студенты</router-link>
                 </li>
-                <li>
+                <li style="margin-bottom: 10px;">
                     <router-link to="/applicants">Абитуриенты</router-link>
                 </li>
-                <li>
+                <li style="margin-bottom: 10px;">
                     <router-link to="/departments">Кафедры</router-link>
                 </li>
-                <li>
+                <li style="margin-bottom: 10px;">
                     <router-link to="/majors">Направления</router-link>
                 </li>
         </ul>
