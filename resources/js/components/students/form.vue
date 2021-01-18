@@ -214,7 +214,11 @@
             },
 
             send() {
-              if (!this.group_id) {
+                if (!this.student.transcript) {
+                  this.$toast.error('Студенту необходимо присвоить номер зачетной книжки.');
+                  return;
+                }
+                if (!this.group_id) {
                 this.$toast.error('Студенту необходимо присвоить группу.');
               } else if(this.student.groups.length && this.group_id === this.student.groups[0].id) {
                 this.$toast.info('Перевод невозможен. Группа, в которую вы собираетесь перевести студента, аналогична его текущей группе.');
