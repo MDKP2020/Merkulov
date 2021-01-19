@@ -19,7 +19,7 @@ class DepartmentController extends Controller
     {
 
         $result = response()->json(Department::all());
-        //print_r($result->getData());
+
         $countStudents = DB::select("
             select d.id as id, count(*) as count_students
             from students
@@ -40,10 +40,6 @@ class DepartmentController extends Controller
                 if($count->id == $item->id)
                     $item->count = $count->count_students;
             }
-
-        //$data['counts'] = $countStudents;
-
-
 
         $result->setData($data);
 
