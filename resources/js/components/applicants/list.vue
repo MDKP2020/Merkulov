@@ -23,10 +23,11 @@
 
         <input type="text"
                class="input"
-               placeholder="Начните вводить имя абитуриента"
+               placeholder="Начните вводить фамилию абитуриента"
                autocomplete="off"
                @blur="showOptions = false"
                @focus="(!isEmpty) ? showOptions = true : ''"
+               v-model = "apl_name"
         />
 
         <table class="table is-fullwidth" v-if="applicants.length">
@@ -42,7 +43,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(applicant, index) in applicants">
+            <tr v-for="(applicant, index) in applicants" v-if="!apl_name || apl_name && applicant.surname.toLowerCase().includes(apl_name.toLowerCase())">
                 <th>{{ ++index }}</th>
                 <td>
                     <router-link :to="'/applicants/' + applicant.id + '/edit'">{{ applicant.surname + ' ' +
@@ -77,6 +78,7 @@
         data: () => ({
             applicants: [],
             showOptions: false,
+            apl_name : ''
         }),
 
         created() {
