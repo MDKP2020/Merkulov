@@ -6,6 +6,7 @@ use App\Department;
 use App\Http\Requests\DepartmentRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class DepartmentController extends Controller
 {
@@ -16,7 +17,37 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        return response()->json(Department::all());
+
+        $result = response()->json(Department::all());
+        //print_r($result->getData());
+        $countStudents = DB::select("
+            select d.id as id, count(*) as count_students
+            from students
+            join student_group sg
+            on sg.student_id  = students.id
+            join \"groups\" g
+            on g.id = sg.group_id
+            join majors m
+            on g.major_id = m.id
+            join departments d
+            on d.id  = m.department_id
+            group by d.id"
+            );
+
+        $data = $result->getData();
+        foreach ($data as $item)
+            foreach ($countStudents as $count){
+                if($count->id == $item->id)
+                    $item->count = $count->count_students;
+            }
+
+        //$data['counts'] = $countStudents;
+
+
+
+        $result->setData($data);
+
+        return $result;
     }
 
     /**

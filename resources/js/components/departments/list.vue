@@ -29,7 +29,7 @@
             <tr v-for="(department, index) in departments">
                 <th>{{ ++index }}</th>
                 <td><router-link :to="'/departments/' + department.id + '/edit'">{{ department.name }}</router-link></td>
-                <td>34</td>
+                <td>{{department.count}}</td>
                 <td>
                     <ul class="unmark">
                         <li v-for="(group, index) in department.groups">
