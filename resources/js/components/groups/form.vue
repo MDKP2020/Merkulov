@@ -224,9 +224,34 @@ export default {
         this.$router.push('/departments');
       }
     },
+
     setStudentStatusExpelled(index) {
         this.group.students[index].status = 'expelled';
-        //TODO Давыд
+        var student = this.group.students[index];
+        var url = "/api/students/"+student.id;
+        let data = new FormData();
+
+        data.append('name', student.name);
+        data.append('surname', student.surname);
+        data.append('patronymic', student.patronymic);
+        data.append('transcript', student.transcript);
+        data.append('status', student.status);
+        data.append('academic_degree', student.academic_degree);
+        data.append('group_id', '');
+
+        data.append('_method',  'put');
+        axios.post(url, data)
+            .then(response => {
+                //
+            })
+            .catch(error => {
+                this.$toast.error('Ошибка сервера. Не удалось сохранить');
+                console.log(error);
+            })
+            .finally(() => {
+                this.loading = false;
+                this.$Progress.finish();
+            });
     }
   },
 }
