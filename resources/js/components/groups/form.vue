@@ -68,7 +68,7 @@
           <tr v-for="(student, index) in group.students">
             <th>{{ ++index }}</th>
             <td>
-              <router-link :to="'/students/' + student.id + '/edit'" v-if="student.groups[0].number === group.number">{{
+              <router-link :style="{color: colors[student.status]}" :to="'/students/' + student.id + '/edit'" v-if="student.groups[0].number === group.number">{{
                   student.surname + ' ' +
                   student.name + ' ' + student.patronymic
                 }} ({{ $parent.STATUSES[student.status] }})
@@ -80,7 +80,7 @@
               </router-link>
             </td>
             <td>
-              <a v-if="student.groups[0].number === group.number && student.status !== 'expelled'"
+              <a v-if="student.groups[0].number === group.number && student.status !== 'expelled' && student.status !== 'graduated'"
                  @click="setStudentStatusExpelled(index - 1)">Отчислить</a>
             </td>
           </tr>
@@ -130,6 +130,8 @@ export default {
   },
 
   data: () => ({
+    colors: {'studying': '#1976D2','expelled':  '#203c3c','academic_leave': '#19d222', 'graduated': '#d26319'},
+
     groupId: null,
     group: null,
     majors: {},
