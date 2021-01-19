@@ -16,31 +16,38 @@
             />
         </div>
         <div class="disable-element fltr-container" id="filter-c">
-<!--            <v-select
-                    multiple
-                    placeholder="Выберите кафедру"
-                    :options="['ПОАС', 'Физика', 'ЭВМ']">
-            </v-select>
-            <v-select
-                    style="margin-top: 10px;"
-                    multiple
-                    placeholder="Выберите направление"
-                    :options="['ПрИн', 'Физика']">
-            </v-select>-->
+            <!--            <v-select
+                                multiple
+                                placeholder="Выберите кафедру"
+                                :options="['ПОАС', 'Физика', 'ЭВМ']">
+                        </v-select>
+                        <v-select
+                                style="margin-top: 10px;"
+                                multiple
+                                placeholder="Выберите направление"
+                                :options="['ПрИн', 'Физика']">
+                        </v-select>-->
             <v-select v-model="ac_deg"
                       style="margin-top: 10px;"
                       multiple
                       placeholder="Выберите уровень обучения"
                       :options="['Бакалавр', 'Магистр', 'Аспирант', 'Специалист']">
             </v-select>
-<!--            <div style="display: flex; flex-direction: row; margin-top: 20px;">
-                <v-select
-                    style="width: auto;"
-                    placeholder="Выберите учебный год"
-                    :options="['2019-2020']">
-                </v-select>
+            <v-select v-model="year"
+                      style="margin-top: 10px;"
+                      multiple
+                      placeholder="Выберите учебный год"
+                      label="start_year"
+                      :options="years">
+            </v-select>
+            <!--            <div style="display: flex; flex-direction: row; margin-top: 20px;">
+                            <v-select
+                                style="width: auto;"
+                                placeholder="Выберите учебный год"
+                                :options="['2019-2020']">
+                            </v-select>
 
-            </div>-->
+                        </div>-->
         </div>
 
         <table class="table is-fullwidth" v-if="students.length">
@@ -56,17 +63,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(student, index) in students" v-if="(!ac_deg.length || ac_deg.length && ac_deg.includes($parent.ACADEMIC_DEGREES[student.academic_degree])) && (!st_name || st_name && student.surname.toLowerCase().includes(st_name.toLowerCase()))">
+            <tr v-for="(student, index) in students" v-if="(!ac_deg.length || ac_deg.length && ac_deg.includes($parent.ACADEMIC_DEGREES[student.academic_degree])) && (!st_name || st_name && student.surname.toLowerCase().includes(st_name.toLowerCase()))
+            && (!year.length || year.length && year.some(data => data.id === 22))">
                 <th>{{ ++index }}</th>
                 <td><router-link :to="'/students/' + student.id + '/edit'">{{ student.surname + ' ' + student.name + ' ' + student.patronymic }}</router-link></td>
                 <td>{{ student.transcript }}</td>
                 <td>
-                  <ul>
-                    <li v-for="(group, index) in student.groups">
-                      <p style="margin-top: 20px" class="has-text-success" v-if="index === 1">Ранее состоял в группах</p>
-                        <router-link :to="'/groups/' + group.id + '/edit'">{{ group.number }}</router-link>
-                    </li>
-                  </ul>
+                    <ul>
+                        <li v-for="(group, index) in student.groups">
+                            <p style="margin-top: 20px" class="has-text-success" v-if="index === 1">Ранее состоял в группах</p>
+                            <router-link :to="'/groups/' + group.id + '/edit'">{{ group.number }}</router-link>
+                        </li>
+                    </ul>
                 </td>
                 <td>2020-09-01</td>
                 <td>{{ $parent.STATUSES[student.status] }}</td>
@@ -88,11 +96,14 @@
             students: [],
             showOptions: false,
             ac_deg : [],
-            st_name : ''
+            st_name : '',
+            years: [],
+            year: []
         }),
 
         created() {
             this.getData();
+            this.getYear();
         },
 
         watch: {
@@ -114,6 +125,18 @@
                 }).catch(error => {
                     console.log(error);
                 });
+            },
+            getYear() {
+                axios.get('api/academic_years/')
+                    .then((response) => {
+                        if (response.data) {
+                            this.years = response.data;
+                        }
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        this.errorText = error.message;
+                    });
             },
         },
 

@@ -37,3 +37,6 @@ Route::apiResource('groups', 'GroupController')->except([
     'create', 'edit']);
 
 Route::post( 'applicants/enrolleApplicant', 'ApplicantController@createStudent');
+
+Route::apiResource('academic_years', 'AcademicYearsController')->except([
+    'create', 'edit']);
