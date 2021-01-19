@@ -172,7 +172,8 @@
                     patronymic: '',
                     transcript: '',
                     status: 'studying',
-                    academic_degree: 'bachelor'
+                    academic_degree: 'bachelor',
+                    groups: []
                 });
             }
         },

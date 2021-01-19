@@ -16,7 +16,7 @@ class AcademicYearsSeeder extends Seeder
     {
         AcademicYears::truncate();
 
-        for ($i = 1999; $i < 2022; $i++){
+        for ($i = 1999; $i < 2021; $i++){
             $st_date = Carbon::createFromDate($i, 9, 1, null);
             $end_date = Carbon::createFromDate($i+1, 5, 31, null);
             AcademicYears::create([
